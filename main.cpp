@@ -1,16 +1,20 @@
 #include <iostream>
+#include <cstdio>
 #include <chrono>
 #include <list>
 #include <ctime>
 #include "domain/interfaces/Astronaut.hpp"
 #include "services/AstronautService.hpp"
 
+void redirect();
 void showOptions();
 void handleRequest(int choice);
 Astronaut *handleCreateAstronaut(AstronautService *service);
 
 int main()
 {
+	system("clear");
+
 	auto astronautsDb = std::list<Astronaut>();
 	auto astronautService = new AstronautService(astronautsDb);
 
@@ -29,7 +33,7 @@ int main()
 		{
 		case 1:
 			handleCreateAstronaut(astronautService);
-
+			redirect();
 			break;
 		default:
 			break;
@@ -42,6 +46,13 @@ int main()
 	std::cout << "Volte sempre! \n";
 
 	return 0;
+}
+
+void redirect()
+{
+	std::cout << "Pressione ENTER para continuar... ";
+	getchar();
+	system("clear");
 }
 
 void showOptions()
@@ -74,5 +85,7 @@ Astronaut *handleCreateAstronaut(AstronautService *service)
 	{
 		std::cout << "Novo astronauta incluído! Seu nome e Id são: " << result->getName() << ", " << result->getId() << std::endl;
 	}
+
+	std::cin.ignore();
 	return result;
 }
