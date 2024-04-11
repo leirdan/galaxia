@@ -4,12 +4,15 @@
 #include <list>
 #include <ctime>
 #include "domain/interfaces/Astronaut.hpp"
+#include "domain/interfaces/Travel.hpp"
 #include "services/AstronautService.hpp"
+#include "services/TravelService.hpp"
 
 void redirect();
 void showOptions();
 void handleRequest(int choice);
 Astronaut *handleCreateAstronaut(AstronautService *service);
+Travel *handleCreateTravel(TravelService *service);
 
 int main()
 {
@@ -18,12 +21,16 @@ int main()
 	auto astronautsDb = std::list<Astronaut>();
 	auto astronautService = new AstronautService(astronautsDb);
 
-	int choice = 5;
+	auto travelService = new TravelService();
+
+	int choice = 1;
 
 	std::cout << "Bem vindo/a ao GALAXIA! \n";
 
 	while (choice != 0)
 	{
+		// std::cout << travelService->getTravelsData()->size() << std::endl;
+		// std::cout << astronautsDb.size() << std::endl;
 		std::cout << "Qual operação deseja realizar? \n";
 		showOptions();
 
@@ -35,13 +42,19 @@ int main()
 			handleCreateAstronaut(astronautService);
 			redirect();
 			break;
+		case 2:
+			handleCreateTravel(travelService);
+			redirect();
+			break;
 		default:
 			break;
 		}
 	}
 
+	// TODO: fix double free/corruption. occurs probably because astronautService/travelService has nothing to delete.
+	// AND!!!: the lists are sharing the size? bcs when i do _dbTravels.size() or _dbAstronauts.size() they always get the LAST id that has been used...
 	delete astronautService;
-	delete &astronautsDb;
+	delete travelService;
 
 	std::cout << "Volte sempre! \n";
 
@@ -59,6 +72,7 @@ void showOptions()
 {
 	std::cout << "0 - Sair do GALAXIA;	\n";
 	std::cout << "1 - Cadastrar Astronauta;	\n";
+	std::cout << "2 - Cadastrar vôo;	\n";
 }
 
 Astronaut *handleCreateAstronaut(AstronautService *service)
@@ -87,5 +101,36 @@ Astronaut *handleCreateAstronaut(AstronautService *service)
 	}
 
 	std::cin.ignore();
+	return result;
+}
+
+Travel *handleCreateTravel(TravelService *service)
+{
+	std::string o, d;
+
+	std::cout << "Você escolheu 'Cadastrar vôo'. \n";
+	std::cout << "Ponto de partida (opcional): ";
+	std::cin.ignore();
+	std::getline(std::cin, o);
+
+	std::cout << "Destino (opcional): ";
+	std::getline(std::cin, d);
+
+	auto result = service->createTravel(o, d);
+
+	if (result == NULL)
+	{
+		std::cout << "Não foi possível criar o vôo.\n";
+	}
+	else
+	{
+		std::cout << "Vôo com código " << result->getCode() << " foi criado";
+		if (!result->getOrigin().empty() && !result->getDestination().empty())
+		{
+			std::cout << " com ponto de partida em " << result->getOrigin() << " e destino em " << result->getDestination();
+		}
+		std::cout << "!\n";
+	}
+
 	return result;
 }
