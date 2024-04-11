@@ -6,8 +6,8 @@ OUTPUT=bin
 
 all: program
 
-program: main.o astronaut.o travel.o astronautService.o
-	${CC} ${OUTPUT}/main.o ${OUTPUT}/astronaut.o ${OUTPUT}/travel.o ${OUTPUT}/astronautService.o -o ${OUTPUT}/program.out
+program: main.o astronaut.o travel.o astronautService.o travelService.o
+	${CC} ${OUTPUT}/main.o ${OUTPUT}/astronaut.o ${OUTPUT}/travel.o ${OUTPUT}/astronautService.o ${OUTPUT}/travelService.o -o ${OUTPUT}/program.out
 
 main.o : main.cpp
 	${CC} ${FLAGS} main.cpp -o ${OUTPUT}/main.o
@@ -20,6 +20,9 @@ travel.o : domain/implementations/Travel.cpp
 
 astronautService.o : services/AstronautService.cpp
 	${CC} ${FLAGS} services/AstronautService.cpp -o ${OUTPUT}/astronautService.o
+
+travelService.o : services/TravelService.cpp
+	${CC} ${FLAGS} services/TravelService.cpp -o ${OUTPUT}/travelService.o
 
 clean:
 	rm -rf ${OUTPUT}/*.o ${OUTPUT}/program.out

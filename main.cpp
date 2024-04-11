@@ -18,8 +18,7 @@ int main()
 {
 	system("clear");
 
-	auto astronautsDb = std::list<Astronaut>();
-	auto astronautService = new AstronautService(astronautsDb);
+	auto astronautService = new AstronautService();
 
 	auto travelService = new TravelService();
 
@@ -29,8 +28,6 @@ int main()
 
 	while (choice != 0)
 	{
-		// std::cout << travelService->getTravelsData()->size() << std::endl;
-		// std::cout << astronautsDb.size() << std::endl;
 		std::cout << "Qual operação deseja realizar? \n";
 		showOptions();
 
@@ -51,8 +48,6 @@ int main()
 		}
 	}
 
-	// TODO: fix double free/corruption. occurs probably because astronautService/travelService has nothing to delete.
-	// AND!!!: the lists are sharing the size? bcs when i do _dbTravels.size() or _dbAstronauts.size() they always get the LAST id that has been used...
 	delete astronautService;
 	delete travelService;
 

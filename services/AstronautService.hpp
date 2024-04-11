@@ -6,10 +6,11 @@
 class AstronautService
 {
 private:
-    std::list<Astronaut> &_dbAstronauts;
+    std::list<Astronaut> *_astronautsData;
 
 public:
-    AstronautService(std::list<Astronaut> list);
+    AstronautService();
     ~AstronautService();
+    std::list<Astronaut> *getAstronautsData(void);
     Astronaut *createAstronaut(const std::string &name, const std::string &cpf, int age);
 };

@@ -1,8 +1,12 @@
+#include <iostream>
 #include "AstronautService.hpp"
 #include "../domain/interfaces/Astronaut.hpp"
-#include <iostream>
 
-AstronautService::AstronautService(std::list<Astronaut> list) : _dbAstronauts(list){};
+AstronautService::AstronautService()
+{
+    _astronautsData = new std::list<Astronaut>();
+};
+
 AstronautService::~AstronautService(){};
 
 Astronaut *AstronautService::createAstronaut(const std::string &name, const std::string &cpf, int age)
@@ -13,9 +17,9 @@ Astronaut *AstronautService::createAstronaut(const std::string &name, const std:
         return NULL;
     }
 
-    auto newAstro = new Astronaut(_dbAstronauts.size() + 1, name, age, cpf);
+    auto newAstro = new Astronaut(_astronautsData->size() + 1, name, age, cpf);
 
-    _dbAstronauts.push_back(*newAstro);
+    _astronautsData->push_back(*newAstro);
 
     return newAstro;
 };
