@@ -102,7 +102,7 @@ Astronaut *Handler::handleCreateAstronaut(AstronautService *service)
 	}
 	else
 	{
-		std::cout << "Novo astronauta incluído! Seu nome e Id são: " << result->getName() << ", " << result->getId() << std::endl;
+		std::cout << "Novo astronauta " << result->getName() << " incluído!\n";
 	}
 
 	std::cin.ignore();
