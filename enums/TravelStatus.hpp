@@ -1,3 +1,6 @@
+#ifndef TRAVELSTATUS_HPP
+#define TRAVELSTATUS_HPP
+
 enum TravelStatus
 {
     PLANNED,
@@ -5,3 +8,5 @@ enum TravelStatus
     COMPLETED,
     EXPLODED
 };
+
+#endif

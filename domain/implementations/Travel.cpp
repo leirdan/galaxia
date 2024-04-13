@@ -3,6 +3,7 @@
 Travel::Travel(int code)
 {
 	_code = code;
+	_status = TravelStatus::PLANNED;
 }
 
 Travel::Travel(int code, const std::string &origin, const std::string &destination)
@@ -10,6 +11,7 @@ Travel::Travel(int code, const std::string &origin, const std::string &destinati
 	_code = code;
 	_origin = origin;
 	_destination = destination;
+	_status = TravelStatus::PLANNED;
 }
 
 Travel::~Travel(){};
@@ -29,7 +31,23 @@ std::string Travel::getDestination()
 	return _destination;
 }
 
-std::list<int> Travel::getAstronautsScheduledForTravel()
+std::list<ReadonlyAstronaut> *Travel::getAstronautsScheduledForTravel()
 {
-	return _astronautsScheduledForTravel;
+	return &_astronautsScheduledForTravel;
+}
+
+bool Travel::setNewAstronautForTravel(ReadonlyAstronaut *astronaut)
+{
+	try
+	{
+		auto v = this->getAstronautsScheduledForTravel();
+
+		v->push_back(*astronaut);
+
+		return true;
+	}
+	catch (std::exception)
+	{
+		return false;
+	}
 }

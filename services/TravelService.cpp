@@ -1,6 +1,7 @@
 #include <list>
 #include "TravelService.hpp"
 #include "../domain/interfaces/Travel.hpp"
+#include "../domain/interfaces/Astronaut.hpp"
 
 TravelService::TravelService()
 {
@@ -30,3 +31,26 @@ Travel *TravelService::createTravel(const std::string &origin, const std::string
 
     return travel;
 };
+
+Travel *TravelService::searchByCode(unsigned int code)
+{
+    auto v = this->getTravelsData();
+
+    for (auto k = v->begin(); k != v->end(); k++)
+    {
+        if (k->getCode() == code)
+        {
+            return &(*k);
+        }
+    }
+
+    return nullptr;
+}
+
+bool TravelService::addAstronaut(Travel *travel, Astronaut *astronaut)
+{
+    auto astronautToTravel = new ReadonlyAstronaut(astronaut->getId(), astronaut->getName(), astronaut->getCpf(), astronaut->getAge());
+    auto result = travel->setNewAstronautForTravel(astronautToTravel);
+
+    return result;
+}

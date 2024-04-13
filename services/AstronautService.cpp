@@ -9,6 +9,11 @@ AstronautService::AstronautService()
 
 AstronautService::~AstronautService(){};
 
+std::list<Astronaut> *AstronautService::getAstronautsData()
+{
+    return _astronautsData;
+}
+
 Astronaut *AstronautService::createAstronaut(const std::string &name, const std::string &cpf, int age)
 {
     if (name.empty() || age < 0)
@@ -23,3 +28,18 @@ Astronaut *AstronautService::createAstronaut(const std::string &name, const std:
 
     return newAstro;
 };
+
+Astronaut *AstronautService::searchByCpf(const std::string &cpf)
+{
+    auto v = this->getAstronautsData();
+    for (auto k = v->begin(); k != v->end(); k++)
+    {
+        if (k->getCpf() == cpf)
+        {
+            return &(*k);
+        }
+        continue;
+    }
+
+    return nullptr;
+}

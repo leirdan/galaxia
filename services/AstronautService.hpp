@@ -1,7 +1,8 @@
+#ifndef ASTRONAUTSERVICE_HPP
+#define ASTRONAUTSERVICE_HPP
+
 #include "../domain/interfaces/Astronaut.hpp"
 #include <list>
-
-// TODO: Verify if it's easily to have a astronautList field in this class.
 
 class AstronautService
 {
@@ -11,6 +12,12 @@ private:
 public:
     AstronautService();
     ~AstronautService();
+
     std::list<Astronaut> *getAstronautsData(void);
+
     Astronaut *createAstronaut(const std::string &name, const std::string &cpf, int age);
+
+    Astronaut *searchByCpf(const std::string &cpf);
 };
+
+#endif

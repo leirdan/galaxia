@@ -3,7 +3,8 @@
 
 #include <list>
 #include <string>
-#include "../../enums/TravelStatus.cpp"
+#include "../classes/ReadonlyAstronaut.hpp"
+#include "../../enums/TravelStatus.hpp"
 
 /**
  * Represents the planned travels.
@@ -26,21 +27,25 @@ private:
     /**
      * This list contains the identifiers from astronauts who will go on this trip.
      */
-    std::list<int>
+    std::list<ReadonlyAstronaut>
         _astronautsScheduledForTravel;
     /**
      * The travel's status.
      */
-    TravelStatus status;
+    TravelStatus _status = TravelStatus::PLANNED;
 
 public:
     Travel(int code);
     Travel(int code, const std::string &origin, const std::string &destination);
     ~Travel();
+
     int getCode(void);
+
     std::string getOrigin(void);
     std::string getDestination(void);
-    std::list<int> getAstronautsScheduledForTravel(void);
+
+    std::list<ReadonlyAstronaut> *getAstronautsScheduledForTravel(void);
+    bool setNewAstronautForTravel(ReadonlyAstronaut *astronaut);
 };
 
 #endif

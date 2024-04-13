@@ -40,6 +40,11 @@ std::string Astronaut::getCpf(void)
     return _cpf;
 }
 
+std::list<ReadonlyTravel> Astronaut::getTravelsList(void)
+{
+    return _travels;
+}
+
 void Astronaut::setName(const std::string &n)
 {
     _name = n;

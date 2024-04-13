@@ -1,7 +1,9 @@
 #ifndef ASTRONAUT_HPP
 #define ASTRONAUT_HPP
 
+#include <list>
 #include <string>
+#include "../classes/ReadonlyTravel.hpp"
 
 /**
  * Represents an astronaut.
@@ -12,7 +14,8 @@ private:
 	int _id, _age;
 	std::string _name;
 	std::string _cpf;
-	bool isOnOngoingTravel;
+	std::list<ReadonlyTravel> _travels;
+	bool _isOnOngoingTravel;
 
 public:
 	Astronaut();
@@ -33,5 +36,7 @@ public:
 
 	bool getOnOngoingTravel(void);
 	void setOnOngoingTravel(bool v);
+
+	std::list<ReadonlyTravel> getTravelsList(void);
 };
 #endif
