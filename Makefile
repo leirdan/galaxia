@@ -4,15 +4,18 @@ FLAGS=-c -Wall
 
 OUTPUT=bin
 
-FILES=main.o astronaut.o travel.o astronautService.o travelService.o readonlyT.o readonlyA.o
+FILES=main.o handler.o astronaut.o travel.o astronautService.o travelService.o readonlyT.o readonlyA.o
 
 all: program
 
 program: ${FILES}
-	${CC} ${OUTPUT}/main.o ${OUTPUT}/astronaut.o ${OUTPUT}/travel.o ${OUTPUT}/astronautService.o ${OUTPUT}/travelService.o ${OUTPUT}/readonlyA.o ${OUTPUT}/readonlyT.o -o ${OUTPUT}/program.out
+	${CC} ${OUTPUT}/main.o ${OUTPUT}/handler.o ${OUTPUT}/astronaut.o ${OUTPUT}/travel.o ${OUTPUT}/astronautService.o ${OUTPUT}/travelService.o ${OUTPUT}/readonlyA.o ${OUTPUT}/readonlyT.o -o ${OUTPUT}/program.out
 
 main.o : main.cpp
 	${CC} ${FLAGS} main.cpp -o ${OUTPUT}/main.o
+
+handler.o : services/Handler.cpp
+	${CC} ${FLAGS} services/Handler.cpp -o ${OUTPUT}/handler.o
 
 astronaut.o : domain/implementations/Astronaut.cpp
 	${CC} ${FLAGS} domain/implementations/Astronaut.cpp -o ${OUTPUT}/astronaut.o
