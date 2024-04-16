@@ -31,6 +31,11 @@ std::string Travel::getDestination()
 	return _destination;
 }
 
+TravelStatus Travel::getStatus()
+{
+	return _status;
+}
+
 std::list<ReadonlyAstronaut> *Travel::getAstronautsScheduledForTravel()
 {
 	return &_astronautsScheduledForTravel;

@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstdio>
-#include <chrono>
 #include <list>
-#include <ctime>
 #include "domain/interfaces/Astronaut.hpp"
 #include "domain/interfaces/Travel.hpp"
 #include "services/AstronautService.hpp"
@@ -17,6 +15,7 @@ public:
 	static Astronaut *handleCreateAstronaut(AstronautService *service);
 	static Travel *handleCreateTravel(TravelService *service);
 	static void handleAddAstronautToTravel(TravelService *travelService, AstronautService *AstronautService);
+	static void handleShowTravels(TravelService *service);
 };
 
 int main()
@@ -52,6 +51,10 @@ int main()
 			Handler::handleAddAstronautToTravel(travelService, astronautService);
 			redirect();
 			break;
+		case 4:
+			Handler::handleShowTravels(travelService);
+			redirect();
+			break;
 		default:
 			break;
 		}
@@ -78,6 +81,7 @@ void showOptions()
 	std::cout << "1 - Cadastrar astronauta;	\n";
 	std::cout << "2 - Cadastrar vôo;	\n";
 	std::cout << "3 - Adicionar astronauta a vôo;	\n";
+	std::cout << "4 - Listar voos planejados;	\n";
 }
 
 Astronaut *Handler::handleCreateAstronaut(AstronautService *service)
@@ -180,5 +184,64 @@ void Handler::handleAddAstronautToTravel(TravelService *travelServ, AstronautSer
 				std::cout << "Não foi possível cadastrar o astronauta no vôo. Lamentamos o ocorrido.\n";
 			}
 		}
+	}
+}
+
+void Handler::handleShowTravels(TravelService *service)
+{
+	auto travels = service->getTravelsData();
+
+	if (travels->size() == 0)
+	{
+		std::cout << "Não há vôos cadastrados.\n";
+		std::cin.ignore();
+		return;
+	}
+
+	for (auto t = travels->begin(); t != travels->end(); t++)
+	{
+		auto astronautsOnTravel = t->getAstronautsScheduledForTravel();
+
+		auto travelStatus = t->getStatus();
+		std::string status;
+		switch (travelStatus)
+		{
+		case PLANNED:
+			status = "Em planejamento.";
+			break;
+		case ONGOING:
+			status = "Lançado.";
+			break;
+		case COMPLETED:
+			status = "Completado com sucesso.";
+			break;
+		case EXPLODED:
+			status = "Explodido.";
+			break;
+		default:
+			status = "Indefinido.";
+			break;
+		}
+
+		std::cout << "-> Vôo " << t->getCode() << ": \n";
+		std::cout << "	- Origem: " << t->getOrigin() << "\n";
+		std::cout << "	- Destino: " << t->getDestination() << "\n";
+		std::cout << "	- Status: " << status << "\n";
+
+		if (astronautsOnTravel->size() == 0)
+		{
+			std::cout << "	- Sem passageiros. \n";
+			std::cin.ignore();
+			continue;
+		}
+
+		std::cout << "	- Lista de passageiros: ";
+		for (auto a = astronautsOnTravel->begin(); a != astronautsOnTravel->end(); a++)
+		{
+			std::cout << a->getName();
+			std::cout << "; ";
+		}
+		std::cout << "\n";
+		std::cin.ignore();
 	}
 }

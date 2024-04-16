@@ -43,6 +43,7 @@ public:
 
     std::string getOrigin(void);
     std::string getDestination(void);
+    TravelStatus getStatus(void);
 
     std::list<ReadonlyAstronaut> *getAstronautsScheduledForTravel(void);
     bool setNewAstronautForTravel(ReadonlyAstronaut *astronaut);

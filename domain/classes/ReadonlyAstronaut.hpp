@@ -16,7 +16,8 @@ private:
 public:
     ReadonlyAstronaut();
     ReadonlyAstronaut(unsigned int id, const std::string &name, const std::string &cpf, unsigned int age);
-    ~ReadonlyAstronaut();
+    ~ReadonlyAstronaut();  
+    std::string getName(void);
 };
 
 #endif

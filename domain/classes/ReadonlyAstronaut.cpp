@@ -1,3 +1,4 @@
+#include <string>
 #include "ReadonlyAstronaut.hpp"
 
 ReadonlyAstronaut::ReadonlyAstronaut(){};
@@ -8,4 +9,9 @@ ReadonlyAstronaut::ReadonlyAstronaut(unsigned int id, const std::string &name, c
     _name = name;
     _cpf = cpf;
     _age = age;
+}
+
+std::string ReadonlyAstronaut::getName(void)
+{
+    return _name;
 }
