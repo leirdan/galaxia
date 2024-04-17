@@ -1,3 +1,6 @@
+#ifndef HANDLER_HPP
+#define HANDLER_HPP
+
 #include <list>
 #include "../domain/interfaces/Astronaut.hpp"
 #include "../domain/interfaces/Travel.hpp"
@@ -11,8 +14,11 @@ private:
     TravelService *_travelService = new TravelService();
 
 public:
+    void handleDisplayTravels();
     Astronaut *handleCreateAstronaut();
     Travel *handleCreateTravel();
     void handleAddAstronautToTravel();
-    void handleShowTravels();
+    void handleRemoveAstronautToTravel();
 };
+
+#endif

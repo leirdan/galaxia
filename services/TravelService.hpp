@@ -18,7 +18,9 @@ public:
 
     Travel *createTravel(const std::string &origin, const std::string &destination);
     Travel *searchByCode(unsigned int code);
+    ReadonlyAstronaut *findAstronautScheduledForTravel(Travel *travel, const std::string &cpf);
     bool addAstronaut(Travel *travel, Astronaut *astronaut);
+    bool removeAstronaut(Travel *travel, Astronaut *astronaut);
 };
 
 #endif

@@ -47,10 +47,41 @@ Travel *TravelService::searchByCode(unsigned int code)
     return nullptr;
 }
 
+ReadonlyAstronaut *TravelService::findAstronautScheduledForTravel(Travel *travel, const std::string &cpf)
+{
+    auto scheduledAstronauts = travel->getAstronautsScheduledForTravel();
+    for (auto k = scheduledAstronauts->begin(); k != scheduledAstronauts->end(); k++)
+    {
+        if (k->getCpf() == cpf)
+        {
+            return &(*k);
+        }
+    }
+
+    return nullptr;
+}
+
 bool TravelService::addAstronaut(Travel *travel, Astronaut *astronaut)
 {
     auto astronautToTravel = new ReadonlyAstronaut(astronaut->getId(), astronaut->getName(), astronaut->getCpf(), astronaut->getAge());
     auto result = travel->setNewAstronautForTravel(astronautToTravel);
 
     return result;
+}
+
+bool TravelService::removeAstronaut(Travel *travel, Astronaut *astronaut)
+{
+    auto astronauts = travel->getAstronautsScheduledForTravel();
+
+    for (auto k = astronauts->begin(); k != astronauts->end(); k++)
+    {
+        if (k->getId() == astronaut->getId())
+        {
+            auto j = (*k);
+            astronauts->remove(j);
+            return true;
+        }
+    }
+
+    return false;
 }

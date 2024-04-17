@@ -38,7 +38,11 @@ int main()
 			redirect();
 			break;
 		case 4:
-			handler->handleShowTravels();
+			handler->handleDisplayTravels();
+			redirect();
+			break;
+		case 5:
+			handler->handleRemoveAstronautToTravel();
 			redirect();
 			break;
 		default:
@@ -66,4 +70,5 @@ void showOptions()
 	std::cout << "2 - Cadastrar vôo;	\n";
 	std::cout << "3 - Adicionar astronauta a vôo;	\n";
 	std::cout << "4 - Listar voos planejados;	\n";
+	std::cout << "5 - Remover astronauta de vôo;	\n";
 }

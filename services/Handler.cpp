@@ -93,6 +93,10 @@ void Handler::handleAddAstronautToTravel()
         {
             std::cout << "Não existe vôo planejado com esse código. :( \n";
         }
+        else if (selectedTravel->getStatus() != TravelStatus::PLANNED)
+        {
+            std::cout << "Este vôo não aceita mais novos astronautas.";
+        }
         else
         {
             bool ok = this->_travelService->addAstronaut(selectedTravel, selectedAstronaut);
@@ -109,7 +113,7 @@ void Handler::handleAddAstronautToTravel()
     }
 }
 
-void Handler::handleShowTravels()
+void Handler::handleDisplayTravels()
 {
     auto travels = this->_travelService->getTravelsData();
 
@@ -135,10 +139,10 @@ void Handler::handleShowTravels()
             status = "Lançado.";
             break;
         case COMPLETED:
-            status = "Completado com sucesso.";
+            status = "Finalizado com sucesso.";
             break;
         case EXPLODED:
-            status = "Explodido.";
+            status = "Finalizado com falha: explodiu.";
             break;
         default:
             status = "Indefinido.";
@@ -166,4 +170,60 @@ void Handler::handleShowTravels()
         std::cout << "\n";
         std::cin.ignore();
     }
+}
+
+void Handler::handleRemoveAstronautToTravel()
+{
+    std::string cpf;
+    unsigned int travelCode;
+    std::cout << "Você escolheu 'Remover Astronauta de um Vôo'. \n";
+    std::cout << "Digite o CPF do astronauta: ";
+    std::cin >> cpf;
+
+    auto selectedAstronaut = this->_astronautService->searchByCpf(cpf);
+
+    if (selectedAstronaut == nullptr)
+    {
+        std::cout << "O astronauta com CPF " << cpf << " não existe. \n";
+        std::cin.ignore();
+        return;
+    }
+
+    std::cout << "Digite o código do vôo: ";
+    std::cin >> travelCode;
+
+    auto selectedTravel = this->_travelService->searchByCode(travelCode);
+
+    if (selectedTravel == nullptr)
+    {
+        std::cout << "Não existe vôo com esse código. \n";
+        std::cin.ignore();
+        return;
+    }
+    else if (selectedTravel->getStatus() != TravelStatus::PLANNED)
+    {
+        std::cout << "Este vôo não aceita mais alterações. \n";
+        std::cin.ignore();
+        return;
+    }
+    else if (this->_travelService->findAstronautScheduledForTravel(selectedTravel, cpf) == nullptr)
+    {
+        std::cout << "Este astronauta não está participando do vôo. \n";
+        std::cin.ignore();
+        return;
+    }
+
+    auto ok = this->_travelService->removeAstronaut(selectedTravel, selectedAstronaut);
+
+    if (ok)
+    {
+        std::cout << "Astronauta " << selectedAstronaut->getName() << " removido do vôo " << selectedTravel->getCode() << ".\n";
+        std::cin.ignore();
+    }
+    else
+    {
+        std::cout << "Não foi possível remover o astronauta do vôo. Lamentamos o ocorrido. \n";
+        std::cin.ignore();
+    }
+    return;
 }
