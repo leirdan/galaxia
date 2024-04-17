@@ -86,30 +86,41 @@ void Handler::handleAddAstronautToTravel()
     {
         std::cout << "Digite o código do vôo que deseja adicionar o astronauta: ";
         std::cin >> travelCode;
-        std::cin.ignore();
 
         auto selectedTravel = this->_travelService->searchByCode(travelCode);
         if (selectedTravel == nullptr)
         {
-            std::cout << "Não existe vôo planejado com esse código. :( \n";
+            std::cout << "Não existe vôo planejado com esse código. \n";
+            std::cin.ignore();
+            return;
         }
         else if (selectedTravel->getStatus() != TravelStatus::PLANNED)
         {
-            std::cout << "Este vôo não aceita mais novos astronautas.";
+            std::cout << "Este vôo não aceita mais novos astronautas. \n";
+            std::cin.ignore();
+            return;
+        }
+        else if (this->_travelService->findAstronautScheduledForTravel(selectedTravel, cpf) != nullptr)
+        {
+            std::cout << "Este astronauta já está participando do vôo! \n";
+            std::cin.ignore();
+            return;
+        }
+
+        bool ok = this->_travelService->addAstronaut(selectedTravel, selectedAstronaut);
+
+        if (ok)
+        {
+            std::cout << "Astronauta " << selectedAstronaut->getName() << " cadastrado no vôo de código " << selectedTravel->getCode() << "! \n";
+            std::cin.ignore();
         }
         else
         {
-            bool ok = this->_travelService->addAstronaut(selectedTravel, selectedAstronaut);
-
-            if (ok)
-            {
-                std::cout << "Astronauta " << selectedAstronaut->getName() << " cadastrado no vôo de código " << selectedTravel->getCode() << "! \n";
-            }
-            else
-            {
-                std::cout << "Não foi possível cadastrar o astronauta no vôo. Lamentamos o ocorrido.\n";
-            }
+            std::cout << "Não foi possível cadastrar o astronauta no vôo. Lamentamos o ocorrido.\n";
+            std::cin.ignore();
         }
+
+        return;
     }
 }
 
