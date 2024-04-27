@@ -2,7 +2,6 @@
 #define TRAVEL_HPP
 
 #include <string>
-#include "../classes/ReadonlyAstronaut.hpp"
 #include "../../enums/TravelStatus.hpp"
 
 /**
