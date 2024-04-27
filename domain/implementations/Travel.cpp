@@ -1,58 +1,43 @@
+#include <string>
 #include "../interfaces/Travel.hpp"
 
-Travel::Travel(int code)
+Travel::Travel(unsigned int code)
 {
-	_code = code;
-	_status = TravelStatus::PLANNED;
+  _code = code;
+  _status = TravelStatus::PLANNED;
 }
 
-Travel::Travel(int code, const std::string &origin, const std::string &destination)
+Travel::Travel(unsigned int code, const std::string &origin, const std::string &destination)
 {
-	_code = code;
-	_origin = origin;
-	_destination = destination;
-	_status = TravelStatus::PLANNED;
+  _code = code;
+  _origin = origin;
+  _destination = destination;
+  _status = TravelStatus::PLANNED;
 }
 
 Travel::~Travel(){};
 
-int Travel::getCode()
+unsigned int Travel::getCode()
 {
-	return _code;
+  return _code;
 }
 
 std::string Travel::getOrigin()
 {
-	return _origin;
+  return _origin;
 }
 
 std::string Travel::getDestination()
 {
-	return _destination;
+  return _destination;
 }
 
 TravelStatus Travel::getStatus()
 {
-	return _status;
+  return _status;
 }
 
-std::list<ReadonlyAstronaut> *Travel::getAstronautsScheduledForTravel()
+void Travel::setStatus(TravelStatus newStatus)
 {
-	return &_astronautsScheduledForTravel;
-}
-
-bool Travel::setNewAstronautForTravel(ReadonlyAstronaut *astronaut)
-{
-	try
-	{
-		auto v = this->getAstronautsScheduledForTravel();
-
-		v->push_back(*astronaut);
-
-		return true;
-	}
-	catch (std::exception)
-	{
-		return false;
-	}
+  _status = newStatus;
 }

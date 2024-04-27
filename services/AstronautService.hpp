@@ -7,17 +7,17 @@
 class AstronautService
 {
 private:
-    std::list<Astronaut> *_astronautsData;
+  std::list<Astronaut> *_astronautsData;
 
 public:
-    AstronautService();
-    ~AstronautService();
+  AstronautService();
+  ~AstronautService();
 
-    std::list<Astronaut> *getAstronautsData(void);
+  std::list<Astronaut> *getAstronautsData(void);
 
-    Astronaut *createAstronaut(const std::string &name, const std::string &cpf, int age);
+  Astronaut *createAstronaut(const std::string &name, const std::string &cpf, int age);
 
-    Astronaut *searchByCpf(const std::string &cpf);
+  Astronaut *searchByCpf(const std::string &cpf);
 };
 
 #endif

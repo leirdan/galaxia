@@ -6,19 +6,22 @@
 #include "../domain/interfaces/Travel.hpp"
 #include "AstronautService.hpp"
 #include "TravelService.hpp"
+#include "AstronautTravelService.hpp"
 
 class Handler
 {
 private:
-    AstronautService *_astronautService = new AstronautService();
-    TravelService *_travelService = new TravelService();
+  AstronautService *_astronautService = new AstronautService();
+  TravelService *_travelService = new TravelService();
+  AstronautTravelService *_astronautTravelService = new AstronautTravelService();    
 
 public:
-    void handleDisplayTravels();
-    Astronaut *handleCreateAstronaut();
-    Travel *handleCreateTravel();
-    void handleAddAstronautToTravel();
-    void handleRemoveAstronautToTravel();
+  void handleDisplayTravels();
+  Astronaut *handleCreateAstronaut();
+  Travel *handleCreateTravel();
+  void handleAddAstronautToTravel();
+  void handleRemoveAstronautToTravel();
+  void handleLaunchTravel();
 };
 
 #endif

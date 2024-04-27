@@ -13,6 +13,7 @@ public:
     ReadonlyTravel();
     ReadonlyTravel(unsigned int code);
     ~ReadonlyTravel();
+    unsigned int getCode(void);
 };
 
 #endif

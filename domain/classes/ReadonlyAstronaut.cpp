@@ -26,6 +26,11 @@ unsigned int ReadonlyAstronaut::getId(void)
     return _id;
 }
 
+AstronautStatus ReadonlyAstronaut::getStatus(void)
+{
+    return _status;
+}
+
 bool ReadonlyAstronaut::operator==(const ReadonlyAstronaut &a1) const
 {
     return (this->_id == a1._id);

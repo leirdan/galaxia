@@ -1,7 +1,6 @@
 #ifndef TRAVEL_HPP
 #define TRAVEL_HPP
 
-#include <list>
 #include <string>
 #include "../classes/ReadonlyAstronaut.hpp"
 #include "../../enums/TravelStatus.hpp"
@@ -15,7 +14,7 @@ private:
     /**
      * Code from travel.
      */
-    int _code;
+    unsigned int _code;
     /**
      * The starting point of the travel.
      */
@@ -25,28 +24,21 @@ private:
      */
     std::string _destination;
     /**
-     * This list contains the identifiers from astronauts who will go on this trip.
-     */
-    std::list<ReadonlyAstronaut>
-        _astronautsScheduledForTravel;
-    /**
      * The travel's status.
      */
     TravelStatus _status = TravelStatus::PLANNED;
 
 public:
-    Travel(int code);
-    Travel(int code, const std::string &origin, const std::string &destination);
+    Travel(unsigned int code);
+    Travel(unsigned int code, const std::string &origin, const std::string &destination);
     ~Travel();
 
-    int getCode(void);
+    unsigned int getCode(void);
 
     std::string getOrigin(void);
     std::string getDestination(void);
     TravelStatus getStatus(void);
-
-    std::list<ReadonlyAstronaut> *getAstronautsScheduledForTravel(void);
-    bool setNewAstronautForTravel(ReadonlyAstronaut *astronaut);
+    void setStatus(TravelStatus newStatus);
 };
 
 #endif

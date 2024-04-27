@@ -1,9 +1,9 @@
 #ifndef ASTRONAUT_HPP
 #define ASTRONAUT_HPP
 
-#include <list>
 #include <string>
 #include "../classes/ReadonlyTravel.hpp"
+#include "../../enums/AstronautStatus.hpp"
 
 /**
  * Represents an astronaut.
@@ -11,22 +11,21 @@
 class Astronaut
 {
 private:
-	int _id, _age;
+	unsigned int _id, _age;
 	std::string _name;
 	std::string _cpf;
-	std::list<ReadonlyTravel> _travels;
-	bool _isOnOngoingTravel;
+	AstronautStatus _status = AVAILABLE;
 
 public:
 	Astronaut();
-	Astronaut(int id, const std::string &name, int age, const std::string &cpf);
-	Astronaut(const std::string &name, int age, const std::string &cpf);
+	Astronaut(unsigned int id, const std::string &name, unsigned int age, const std::string &cpf);
+	Astronaut(const std::string &name, unsigned int age, const std::string &cpf);
 	~Astronaut();
 
-	int getId(void);
+	unsigned int getId(void);
 
-	int getAge(void);
-	void setAge(int a);
+	unsigned int getAge(void);
+	void setAge(unsigned int a);
 
 	std::string getName(void);
 	void setName(const std::string &n);
@@ -34,9 +33,7 @@ public:
 	std::string getCpf(void);
 	void setCpf(const std::string &c);
 
-	bool getOnOngoingTravel(void);
-	void setOnOngoingTravel(bool v);
-
-	std::list<ReadonlyTravel> getTravelsList(void);
+	AstronautStatus getStatus(void);
+	void setStatus(AstronautStatus newStatus);
 };
 #endif

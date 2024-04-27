@@ -3,61 +3,66 @@
 
 Astronaut::Astronaut(){};
 
-Astronaut::Astronaut(int id, const std::string &name, int age, const std::string &cpf)
+Astronaut::Astronaut(unsigned int id, const std::string &name, unsigned int age, const std::string &cpf)
 {
-    _id = id;
-    _name = name;
-    _cpf = cpf;
-    _age = age;
+  _id = id;
+  _name = name;
+  _cpf = cpf;
+  _age = age;
 };
 
-Astronaut::Astronaut(const std::string &name, int age, const std::string &cpf)
+Astronaut::Astronaut(const std::string &name, unsigned int age, const std::string &cpf)
 {
-    _name = name;
-    _cpf = cpf;
-    _age = age;
+  _name = name;
+  _cpf = cpf;
+  _age = age;
 };
 
 Astronaut::~Astronaut(){};
 
-int Astronaut::getId(void)
+unsigned int Astronaut::getId(void)
 {
-    return _id;
+  return _id;
 }
 
 std::string Astronaut::getName(void)
 {
-    return _name;
+  return _name;
 }
 
-int Astronaut::getAge(void)
+unsigned int Astronaut::getAge(void)
 {
-    return _age;
+  return _age;
 }
 
 std::string Astronaut::getCpf(void)
 {
-    return _cpf;
+  return _cpf;
 }
 
-std::list<ReadonlyTravel> Astronaut::getTravelsList(void)
+AstronautStatus Astronaut::getStatus(void)
 {
-    return _travels;
+  return _status;
 }
 
 void Astronaut::setName(const std::string &n)
 {
-    _name = n;
+  _name = n;
 }
 
-void Astronaut::setAge(int a)
+void Astronaut::setAge(unsigned int a)
 {
-    // TODO: add validation to 'a'
-    _age = a;
+  // TODO: add validation to 'a'
+  _age = a;
 }
 
 void Astronaut::setCpf(const std::string &c)
 {
-    // TODO: add validation
-    _cpf = c;
+  // TODO: add validation
+  _cpf = c;
+}
+
+void Astronaut::setStatus(AstronautStatus newStatus)
+{
+  _status = newStatus;
 }

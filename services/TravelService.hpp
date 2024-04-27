@@ -4,23 +4,19 @@
 #include <list>
 #include <string>
 #include "../domain/interfaces/Travel.hpp"
-#include "../domain/interfaces/Astronaut.hpp"
 
 class TravelService
 {
 private:
-    std::list<Travel> *_travelsData;
+  std::list<Travel> *_travelsData;
 
 public:
-    TravelService();
-    ~TravelService();
-    std::list<Travel> *getTravelsData(void);
+  TravelService();
+  ~TravelService();
+  std::list<Travel> *getTravelsData(void);
 
-    Travel *createTravel(const std::string &origin, const std::string &destination);
-    Travel *searchByCode(unsigned int code);
-    ReadonlyAstronaut *findAstronautScheduledForTravel(Travel *travel, const std::string &cpf);
-    bool addAstronaut(Travel *travel, Astronaut *astronaut);
-    bool removeAstronaut(Travel *travel, Astronaut *astronaut);
+  Travel *createTravel(const std::string &origin, const std::string &destination);
+  Travel *searchByCode(unsigned int code);
 };
 
 #endif

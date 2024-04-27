@@ -2,6 +2,7 @@
 #define READONLYASTRONAUT_HPP
 
 #include <string>
+#include "../../enums/AstronautStatus.hpp"
 
 /**
  * Represents the general read-only data of an astronaut, with the purpose to create lists on Travel class.
@@ -12,6 +13,7 @@ private:
     unsigned int _id;
     unsigned int _age;
     std::string _name, _cpf;
+    AstronautStatus _status = AVAILABLE;
 
 public:
     ReadonlyAstronaut();
@@ -20,6 +22,7 @@ public:
     unsigned int getId(void);
     std::string getName(void);
     std::string getCpf(void);
+    AstronautStatus getStatus(void);
     bool operator==(const ReadonlyAstronaut &a1) const;
 };
 
