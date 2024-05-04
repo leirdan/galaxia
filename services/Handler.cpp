@@ -278,6 +278,11 @@ void Handler::handleLaunchTravel()
 
   auto selectedTravel = this->_travelService->searchByCode(travelCode);
 
+  std::list<Astronaut *> *astronautsOnTravel = nullptr;
+
+  if (selectedTravel != nullptr)
+    astronautsOnTravel = this->_astronautTravelService->getAstronautsOnTravel(selectedTravel->getCode());
+
   if (selectedTravel == nullptr)
   {
     std::cout << "Não existe nenhum vôo cadastrado com esse código. \n";
@@ -290,47 +295,40 @@ void Handler::handleLaunchTravel()
     std::cin.ignore();
     return;
   }
-  /*else if (selectedTravel->getAstronautsScheduledForTravel()->size() < 1)
+  else if (astronautsOnTravel == nullptr || astronautsOnTravel->size() < 1)
   {
     std::cout << "O vôo não tem passageiros. \n";
     std::cin.ignore();
     return;
   }
 
-  auto scheduledAstronauts = selectedTravel->getAstronautsScheduledForTravel();
-
-  for (auto k = scheduledAstronauts->begin(); k != scheduledAstronauts->end(); k++)
+  bool isAllAstronautsAvailable = true;
+  for (auto a = astronautsOnTravel->begin(); a != astronautsOnTravel->end(); a++)
   {
-    if (k->getStatus() != AVAILABLE)
+    auto astronaut = *a;
+    if (astronaut->getStatus() != AVAILABLE)
     {
-      std::cout << "Nem todos os passageiros estão disponíveis. \n";
-      std::cin.ignore();
-      return;
+      isAllAstronautsAvailable = false;
+      break;
     }
   }
-  */
 
-  // Segmentation fault: probably on code below
+  if (!isAllAstronautsAvailable)
+  {
+    std::cout << "Certifique-se de que todos os astronautas estejam disponíveis.\n";
+    std::cin.ignore();
+    return;
+  }
+
+  for (auto a = astronautsOnTravel->begin(); a != astronautsOnTravel->end(); a++)
+  {
+    auto astronaut = *a;
+    astronaut->setStatus(ONGOINGTRAVEL);
+  }
 
   selectedTravel->setStatus(TravelStatus::ONGOING);
 
-  /*
-  auto realScheduledAstronauts = this->_astronautService->getAstronautsData();
-  for (auto k = realScheduledAstronauts->begin(); k != realScheduledAstronauts->end(); k++)
-  {
-    auto travelsForAstronautK = k->getTravelsList();
-    for (auto w = travelsForAstronautK->begin(); w != travelsForAstronautK->end(); w++)
-    {
-      if (w->getCode() == selectedTravel->getCode())
-      {
-        k->setStatus(AstronautStatus::ONGOINGTRAVEL);
-        break;
-      }
-    }
-  }
-  */
-
-  std::cout << "Vôo " << selectedTravel->getCode() << " com destino a " << " lançado! \n";
+  std::cout << "Vôo " << selectedTravel->getCode() << " com destino a " << selectedTravel->getDestination() << " lançado! \n";
   std::cin.ignore();
   return;
 }
