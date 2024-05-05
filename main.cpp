@@ -17,7 +17,7 @@ int main()
 
   while (choice != 0)
   {
-    std::cout << "Qual operação deseja realizar? \n";
+    std::cout << "MENU DE OPERAÇÕES\n";
     showOptions();
 
     std::cin >> choice;
@@ -53,10 +53,12 @@ int main()
       redirect();
       break;
     default:
-      delete handler;
+      system("clear");
       break;
     }
   }
+
+  delete handler;
 
   std::cout << "Volte sempre! \n";
 
