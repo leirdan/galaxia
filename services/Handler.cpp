@@ -111,15 +111,18 @@ void Handler::handleAddAstronautToTravel()
 
   auto selectedAstronaut = this->_astronautService->searchByCpf(cpf);
 
-  // TODO: deal with the dead astronauts
-
   if (selectedAstronaut == nullptr)
   {
     std::cout << "O astronauta com CPF " << cpf << " não existe. \n";
     return;
   }
+  else if (selectedAstronaut->getStatus() == AstronautStatus::DEAD)
+  {
+    std::cout << "O astronauta com CPF " << cpf << " está morto. \n";
+    return;
+  }
 
-  std::cout << "Digite o código do vôo que deseja adicionar o astronauta: ";
+  std::cout << "Digite o código do vôo: ";
   std::cin >> travelCode;
 
   auto selectedTravel = this->_travelService->searchByCode(travelCode);
@@ -145,16 +148,11 @@ void Handler::handleAddAstronautToTravel()
   bool ok = this->_astronautTravelService->addAstronautToTravel(selectedTravel, selectedAstronaut);
 
   if (ok)
-  {
     std::cout << "Astronauta " << selectedAstronaut->getName() << " cadastrado no vôo de código " << selectedTravel->getCode() << "! \n";
-    std::cin.ignore();
-  }
   else
-  {
     std::cout << "Não foi possível cadastrar o astronauta no vôo. Lamentamos o ocorrido.\n";
-    std::cin.ignore();
-  }
 
+  std::cin.ignore();
   return;
 }
 
