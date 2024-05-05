@@ -6,7 +6,10 @@ TravelService::TravelService()
   _travelsData = new std::list<Travel>();
 };
 
-TravelService::~TravelService(){};
+TravelService::~TravelService()
+{
+  delete _travelsData;
+};
 
 std::list<Travel> *TravelService::getTravelsData()
 {

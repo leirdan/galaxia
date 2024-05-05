@@ -7,7 +7,10 @@ AstronautService::AstronautService()
   _astronautsData = new std::list<Astronaut>();
 };
 
-AstronautService::~AstronautService(){};
+AstronautService::~AstronautService()
+{
+  delete _astronautsData;
+};
 
 std::list<Astronaut> *AstronautService::getAstronautsData()
 {

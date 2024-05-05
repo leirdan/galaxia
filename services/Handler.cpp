@@ -6,6 +6,9 @@
 #include "TravelService.hpp"
 #include "Handler.hpp"
 
+Handler::Handler() {}
+Handler::~Handler() {}
+
 bool checkCpfInput(const std::string &cpf)
 {
   for (char c : cpf)
@@ -327,6 +330,8 @@ void Handler::handleLaunchTravel()
   }
 
   selectedTravel->setStatus(TravelStatus::ONGOING);
+
+  delete astronautsOnTravel;
 
   std::cout << "Vôo " << selectedTravel->getCode() << " com destino a " << selectedTravel->getDestination() << " lançado! \n";
   std::cin.ignore();

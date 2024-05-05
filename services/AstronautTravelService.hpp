@@ -10,10 +10,12 @@ private:
   std::list<AstronautTravel> *_astronautTravelData = new std::list<AstronautTravel>;
 
 public:
+  AstronautTravelService();
+  ~AstronautTravelService();
   std::list<AstronautTravel> *getAstronautTravelData(void);
   bool addAstronautToTravel(Travel *travel, Astronaut *astronaut);
   Astronaut *findAstronautScheduledForTravel(Travel *travel, const std::string &cpf);
-  std::list<Astronaut *> * getAstronautsOnTravel(unsigned int travelCode);
+  std::list<Astronaut *> *getAstronautsOnTravel(unsigned int travelCode);
   bool removeAstronautOnTravel(unsigned int travelCode, unsigned int astronautId);
 };
 

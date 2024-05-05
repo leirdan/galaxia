@@ -13,9 +13,11 @@ class Handler
 private:
   AstronautService *_astronautService = new AstronautService();
   TravelService *_travelService = new TravelService();
-  AstronautTravelService *_astronautTravelService = new AstronautTravelService();    
+  AstronautTravelService *_astronautTravelService = new AstronautTravelService();
 
 public:
+  Handler();
+  ~Handler();
   void handleDisplayTravels();
   Astronaut *handleCreateAstronaut();
   Travel *handleCreateTravel();

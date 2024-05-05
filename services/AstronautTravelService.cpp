@@ -1,5 +1,11 @@
 #include "AstronautTravelService.hpp"
 
+AstronautTravelService::AstronautTravelService() {}
+AstronautTravelService::~AstronautTravelService()
+{
+  delete _astronautTravelData;
+}
+
 std::list<AstronautTravel> *AstronautTravelService::getAstronautTravelData(void)
 {
   return _astronautTravelData;
@@ -34,15 +40,15 @@ Astronaut *AstronautTravelService::findAstronautScheduledForTravel(Travel *trave
   return nullptr;
 }
 
-std::list<Astronaut *> * AstronautTravelService::getAstronautsOnTravel(unsigned int travelCode)
-{ 
+std::list<Astronaut *> *AstronautTravelService::getAstronautsOnTravel(unsigned int travelCode)
+{
   auto data = this->getAstronautTravelData();
 
-  auto astronautsPointers = new std::list<Astronaut*>();
-  
-  for (auto k = data->begin(); k != data->end(); k++) 
+  auto astronautsPointers = new std::list<Astronaut *>();
+
+  for (auto k = data->begin(); k != data->end(); k++)
   {
-    if(k->getTravelId() == travelCode) 
+    if (k->getTravelId() == travelCode)
     {
       astronautsPointers->push_back(k->getAstronautInfo());
     }
