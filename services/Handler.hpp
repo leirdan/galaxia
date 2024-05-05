@@ -24,6 +24,7 @@ public:
   void handleAddAstronautToTravel();
   void handleRemoveAstronautToTravel();
   void handleLaunchTravel();
+  void handleCheckOnGoingTravel();
 };
 
 #endif

@@ -76,3 +76,18 @@ bool AstronautTravelService::removeAstronautOnTravel(unsigned int travelCode, un
     return false;
   }
 }
+
+std::list<Travel *> *AstronautTravelService::getOnGoingTravels(std::list<Travel> *travelsData)
+{
+  auto travelsPointers = new std::list<Travel *>();
+  for (auto t = travelsData->begin(); t != travelsData->end(); t++)
+  {
+    if (t->getStatus() == TravelStatus::ONGOING)
+    {
+      auto travel = &(*t);
+      travelsPointers->push_back(travel);
+    }
+  }
+
+  return travelsPointers->size() == 0 ? nullptr : travelsPointers;
+}

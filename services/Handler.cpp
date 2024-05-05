@@ -5,6 +5,7 @@
 #include "AstronautService.hpp"
 #include "TravelService.hpp"
 #include "Handler.hpp"
+#include "../utils/random.h"
 
 Handler::Handler() {}
 Handler::~Handler() {}
@@ -44,6 +45,8 @@ Astronaut *Handler::handleCreateAstronaut()
   std::cout << "Digite o nome do astronauta: ";
   std::cin.ignore();
   std::getline(std::cin, name);
+
+  // TODO: deal with duplicated cpf
 
   readCpf(cpf);
 
@@ -107,6 +110,8 @@ void Handler::handleAddAstronautToTravel()
   readCpf(cpf);
 
   auto selectedAstronaut = this->_astronautService->searchByCpf(cpf);
+
+  // TODO: deal with the dead astronauts
 
   if (selectedAstronaut == nullptr)
   {
@@ -336,4 +341,86 @@ void Handler::handleLaunchTravel()
   std::cout << "Vôo " << selectedTravel->getCode() << " com destino a " << selectedTravel->getDestination() << " lançado! \n";
   std::cin.ignore();
   return;
+}
+
+void Handler::handleCheckOnGoingTravel()
+{
+  std::cout << "Você escolheu a opção 'Verificar vôo'. \n";
+
+  unsigned int travelCode;
+  auto allTravels = this->_travelService->getTravelsData();
+
+  auto onGoingTravels = this->_astronautTravelService->getOnGoingTravels(allTravels);
+
+  if (onGoingTravels == nullptr || onGoingTravels->size() == 0)
+  {
+    std::cout << "Nenhum vôo foi lançado. \n";
+    std::cin.ignore();
+    return;
+  }
+
+  std::cout << "Estes são os códigos dos vôos já lançados: \n";
+
+  for (auto t = onGoingTravels->begin(); t != onGoingTravels->end(); t++)
+  {
+    auto travel = *t;
+    std::cout << "* " << travel->getCode() << ": " << travel->getOrigin() << " -> " << travel->getDestination() << "\n";
+  }
+
+  std::cout << "Digite o código de qual vôo você deseja analisar: ";
+  std::cin >> travelCode;
+
+  auto selectedTravel = this->_travelService->searchByCode(travelCode);
+
+  if (selectedTravel == nullptr || selectedTravel->getStatus() != TravelStatus::ONGOING)
+  {
+    std::cout << "Não existe um vôo lançado com esse código. \n";
+    std::cin.ignore();
+    return;
+  }
+
+  int chance = generateNumberOnInterval(1, 100);
+
+  auto astronautsOnTravel = this->_astronautTravelService->getAstronautsOnTravel(selectedTravel->getCode());
+
+  // Exploded
+  if (chance >= 1 && chance < 70)
+  {
+    selectedTravel->setStatus(EXPLODED);
+
+    for (auto a = astronautsOnTravel->begin(); a != astronautsOnTravel->end(); a++)
+    {
+      auto *astronaut = *a;
+      astronaut->setStatus(DEAD);
+    }
+
+    std::cout << "Oops... a nave sofreu algum acidente em sua missão. Não houve sobreviventes. \n";
+    std::cin.ignore();
+    return;
+  }
+  // Alright
+  else if (chance >= 70 && chance <= 100)
+  {
+    selectedTravel->setStatus(COMPLETED);
+
+    for (auto a = astronautsOnTravel->begin(); a != astronautsOnTravel->end(); a++)
+    {
+      auto *astronaut = *a;
+      astronaut->setStatus(AVAILABLE);
+    }
+
+    auto message = selectedTravel->getDestination().compare("Indefinido")
+                       ? "A nave pousou com sucesso em seu destino. "
+                       : "A nave pousou com sucesso em " + selectedTravel->getDestination() + ". ";
+
+    std::cout << message << "Os astronautas já estão de volta e prontos para outra missão! \n";
+    std::cin.ignore();
+    return;
+  }
+  else
+  {
+    std::cout << "Ocorreu um erro no processamento dos dados. \n";
+    std::cin.ignore();
+    return;
+  }
 }

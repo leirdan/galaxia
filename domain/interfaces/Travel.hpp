@@ -10,34 +10,36 @@
 class Travel
 {
 private:
-    /**
-     * Code from travel.
-     */
-    unsigned int _code;
-    /**
-     * The starting point of the travel.
-     */
-    std::string _origin;
-    /**
-     * The intended arrival point for the travel.
-     */
-    std::string _destination;
-    /**
-     * The travel's status.
-     */
-    TravelStatus _status = TravelStatus::PLANNED;
+  /**
+   * Code from travel.
+   */
+  unsigned int _code;
+  /**
+   * The starting point of the travel.
+   */
+  std::string _origin;
+  /**
+   * The intended arrival point for the travel.
+   */
+  std::string _destination;
+  /**
+   * The travel's status.
+   */
+  TravelStatus _status = TravelStatus::PLANNED;
 
 public:
-    Travel(unsigned int code);
-    Travel(unsigned int code, const std::string &origin, const std::string &destination);
-    ~Travel();
+  Travel(unsigned int code);
+  Travel(unsigned int code, const std::string &origin, const std::string &destination);
+  ~Travel();
 
-    unsigned int getCode(void);
+  unsigned int getCode(void);
 
-    std::string getOrigin(void);
-    std::string getDestination(void);
-    TravelStatus getStatus(void);
-    void setStatus(TravelStatus newStatus);
+  std::string getOrigin(void);
+  std::string getDestination(void);
+  TravelStatus getStatus(void);
+  void setStatus(TravelStatus newStatus);
+
+  bool operator!=(const TravelStatus &stat) const;
 };
 
 #endif

@@ -3,8 +3,9 @@
 
 enum AstronautStatus
 {
-    AVAILABLE,
-    ONGOINGTRAVEL
+  AVAILABLE,
+  ONGOINGTRAVEL,
+  DEAD
 };
 
 #endif

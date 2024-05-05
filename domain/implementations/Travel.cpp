@@ -41,3 +41,8 @@ void Travel::setStatus(TravelStatus newStatus)
 {
   _status = newStatus;
 }
+
+bool Travel::operator!=(const TravelStatus &stat) const
+{
+  return (static_cast<int>(this->_status) != static_cast<int>(stat));
+}
