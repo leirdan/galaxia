@@ -22,41 +22,40 @@ int main()
 
     std::cin >> choice;
 
-    // TODO: change this sort
     switch (choice)
     {
     case 0: 
       break;
     case 1:
-      handler->handleCreateAstronaut();
+      handler->handleDisplayAstronauts();
       redirect();
       break;
     case 2:
-      handler->handleCreateTravel();
+      handler->handleCreateAstronaut();
       redirect();
       break;
     case 3:
-      handler->handleAddAstronautToTravel();
-      redirect();
-      break;
-    case 4:
       handler->handleDisplayTravels();
       redirect();
       break;
+    case 4:
+      handler->handleCreateTravel();
+      redirect();
+      break;
     case 5:
-      handler->handleRemoveAstronautToTravel();
+      handler->handleAddAstronautToTravel();
       redirect();
       break;
     case 6:
-      handler->handleLaunchTravel();
+      handler->handleRemoveAstronautToTravel();
       redirect();
       break;
     case 7:
-      handler->handleCheckOnGoingTravel();
+      handler->handleLaunchTravel();
       redirect();
       break;
     case 8:
-      handler->handleDisplayAstronauts();
+      handler->handleCheckOnGoingTravel();
       redirect();
       break;
     default:
@@ -82,12 +81,12 @@ void redirect()
 void showOptions()
 {
   std::cout << "0 - Sair do GALAXIA;	\n";
-  std::cout << "1 - Cadastrar astronauta;	\n";
-  std::cout << "2 - Cadastrar vôo;	\n";
-  std::cout << "3 - Adicionar astronauta a vôo;	\n";
-  std::cout << "4 - Listar voos;	\n";
-  std::cout << "5 - Remover astronauta de vôo;	\n";
-  std::cout << "6 - Lançar vôo;	\n";
-  std::cout << "7 - Verificar vôo;	\n";
-  std::cout << "8 - Listar astronautas;	\n";
+  std::cout << "1 - Listar astronautas;	\n";
+  std::cout << "2 - Cadastrar astronauta;	\n";
+  std::cout << "3 - Listar voos;	\n";
+  std::cout << "4 - Cadastrar vôo;	\n";
+  std::cout << "5 - Adicionar astronauta a vôo;	\n";
+  std::cout << "6 - Remover astronauta de vôo;	\n";
+  std::cout << "7 - Lançar vôo;	\n";
+  std::cout << "8 - Verificar vôo;	\n";
 }
