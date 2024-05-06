@@ -45,6 +45,29 @@ AstronautStatus Astronaut::getStatus(void)
   return _status;
 }
 
+std::string Astronaut::getStatusToString(void)
+{
+  std::string status;
+
+  switch (_status)
+  {
+  case AVAILABLE:
+    status = "Disponível.";
+    break;
+  case DEAD:
+    status = "Falecido.";
+    break;
+  case ONGOINGTRAVEL:
+    status = "Em missão.";
+    break;
+  default:
+    status = "Indefinido.";
+    break;
+  }
+
+  return status;
+}
+
 void Astronaut::setName(const std::string &n)
 {
   _name = n;

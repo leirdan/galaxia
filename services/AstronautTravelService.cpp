@@ -57,6 +57,20 @@ std::list<Astronaut *> *AstronautTravelService::getAstronautsOnTravel(unsigned i
   return astronautsPointers->size() >= 1 ? astronautsPointers : nullptr;
 }
 
+std::list<Travel *> *AstronautTravelService::getTravelsByAstronaut(Astronaut *astronaut)
+{
+  auto travelsPointers = new std::list<Travel *>();
+  for (auto k = _astronautTravelData->begin(); k != _astronautTravelData->end(); k++)
+  {
+    if (k->getAstronautId() == astronaut->getId())
+    {
+      auto travel = k->getTravelInfo();
+      travelsPointers->push_back(travel);
+    }
+  }
+  return travelsPointers->size() >= 1 ? travelsPointers : nullptr;
+}
+
 bool AstronautTravelService::removeAstronautOnTravel(unsigned int travelCode, unsigned int astronautId)
 {
   try

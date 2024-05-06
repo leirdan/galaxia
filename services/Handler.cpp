@@ -218,6 +218,73 @@ void Handler::handleDisplayTravels()
   }
 }
 
+void Handler::handleDisplayAstronauts()
+{
+  std::cin.ignore();
+  std::cout << "Você escolheu 'Listar Astronautas'. \n";
+
+  std::cout << "=======================\n";
+  std::cout << "ASTRONAUTAS DISPONÍVEIS\n";
+  std::cout << "=======================\n";
+
+  printAstronauts(AstronautStatus::AVAILABLE);
+
+  std::cout << "=======================\n";
+  std::cout << " ASTRONAUTAS EM MISSÃO \n";
+  std::cout << "=======================\n";
+
+  printAstronauts(AstronautStatus::ONGOINGTRAVEL);
+
+  std::cout << "=======================\n";
+  std::cout << " ASTRONAUTAS FALECIDOS \n";
+  std::cout << "=======================\n";
+
+  printAstronauts(AstronautStatus::DEAD);
+
+  return;
+}
+
+void Handler::printAstronauts(AstronautStatus status)
+{
+  auto astronauts = this->_astronautService->getAstronautsByStatus(status);
+
+  if (astronauts == nullptr)
+  {
+    std::cout << "Nenhum. \n";
+    return;
+  }
+
+  for (auto a = astronauts->begin(); a != astronauts->end(); a++)
+  {
+    auto astronaut = *a;
+    std::cout << "* Astronauta " << astronaut->getName() << "\n"
+      << "  - Id: " << astronaut->getId() << "\n"
+      << "  - Idade: " << astronaut->getAge() << "\n"
+      << "  - CPF: " << astronaut->getCpf() << "\n"
+      << "  - Status: " << astronaut->getStatusToString() << "\n";
+
+    if (astronaut->getStatus() == AstronautStatus::DEAD)
+    {
+      std::cout << "  - Vôos: ";
+
+      auto travelsByAstronaut = this->_astronautTravelService->getTravelsByAstronaut(astronaut);
+
+      if (travelsByAstronaut == nullptr)
+        std::cout << "nenhum. \n";
+      else
+      {
+        for (auto t = travelsByAstronaut->begin(); t != travelsByAstronaut->end(); t++)
+        {
+          auto travel = *t;
+          std::cout << travel->getCode() << "; ";
+        }
+        std::cout << "\n";
+      }
+    }
+    std::cout << "----------------------\n";
+  }
+}
+
 void Handler::handleRemoveAstronautToTravel()
 {
   std::string cpf;

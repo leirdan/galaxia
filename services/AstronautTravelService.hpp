@@ -17,6 +17,7 @@ public:
   Astronaut *findAstronautScheduledForTravel(Travel *travel, const std::string &cpf);
   std::list<Astronaut *> *getAstronautsOnTravel(unsigned int travelCode);
   std::list<Travel *> *getOnGoingTravels(std::list<Travel> *travelsData);
+  std::list<Travel *> *getTravelsByAstronaut(Astronaut *astronaut);
   bool removeAstronautOnTravel(unsigned int travelCode, unsigned int astronautId);
 };
 

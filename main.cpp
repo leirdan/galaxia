@@ -22,8 +22,11 @@ int main()
 
     std::cin >> choice;
 
+    // TODO: change this sort
     switch (choice)
     {
+    case 0: 
+      break;
     case 1:
       handler->handleCreateAstronaut();
       redirect();
@@ -52,6 +55,10 @@ int main()
       handler->handleCheckOnGoingTravel();
       redirect();
       break;
+    case 8:
+      handler->handleDisplayAstronauts();
+      redirect();
+      break;
     default:
       system("clear");
       break;
@@ -78,8 +85,9 @@ void showOptions()
   std::cout << "1 - Cadastrar astronauta;	\n";
   std::cout << "2 - Cadastrar vôo;	\n";
   std::cout << "3 - Adicionar astronauta a vôo;	\n";
-  std::cout << "4 - Listar voos planejados;	\n";
+  std::cout << "4 - Listar voos;	\n";
   std::cout << "5 - Remover astronauta de vôo;	\n";
   std::cout << "6 - Lançar vôo;	\n";
   std::cout << "7 - Verificar vôo;	\n";
+  std::cout << "8 - Listar astronautas;	\n";
 }

@@ -15,6 +15,8 @@ public:
 
   std::list<Astronaut> *getAstronautsData(void);
 
+  std::list<Astronaut *> *getAstronautsByStatus(AstronautStatus status);
+
   Astronaut *createAstronaut(const std::string &name, const std::string &cpf, int age);
 
   Astronaut *searchByCpf(const std::string &cpf);

@@ -17,6 +17,21 @@ std::list<Astronaut> *AstronautService::getAstronautsData()
   return _astronautsData;
 }
 
+std::list<Astronaut *> *AstronautService::getAstronautsByStatus(AstronautStatus status)
+{
+  auto astronautsPointers = new std::list<Astronaut *>();
+  for (auto a = _astronautsData->begin(); a != _astronautsData->end(); a++)
+  {
+    if (a->getStatus() == status)
+    {
+      auto astronaut = &(*a);
+      astronautsPointers->push_back(astronaut);
+    }
+  }
+
+  return astronautsPointers->size() >= 1 ? astronautsPointers : nullptr;
+}
+
 Astronaut *AstronautService::createAstronaut(const std::string &name, const std::string &cpf, int age)
 {
   if (name.empty() || age < 0)

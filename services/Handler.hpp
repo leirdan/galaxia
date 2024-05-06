@@ -14,10 +14,12 @@ private:
   AstronautService *_astronautService = new AstronautService();
   TravelService *_travelService = new TravelService();
   AstronautTravelService *_astronautTravelService = new AstronautTravelService();
+  void printAstronauts(AstronautStatus status);
 
 public:
   Handler();
   ~Handler();
+  void handleDisplayAstronauts();
   void handleDisplayTravels();
   Astronaut *handleCreateAstronaut();
   Travel *handleCreateTravel();
