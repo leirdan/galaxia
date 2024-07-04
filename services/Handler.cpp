@@ -12,6 +12,9 @@ Handler::~Handler() {}
 
 bool checkCpfInput(const std::string &cpf)
 {
+  if (cpf.length() != 11) 
+    return false;
+
   for (char c : cpf)
   {
     if (std::isalpha(c))

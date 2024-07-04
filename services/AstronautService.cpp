@@ -40,6 +40,12 @@ Astronaut *AstronautService::createAstronaut(const std::string &name, const std:
     return nullptr;
   }
 
+  if (searchByCpf(cpf) != nullptr) 
+  { 
+    std::cout << "Já existe um astronauta com este mesmo CPF.\n";
+    return nullptr;
+  }
+
   auto newAstro = new Astronaut(_astronautsData->size() + 1, name, age, cpf);
 
   _astronautsData->push_back(*newAstro);
